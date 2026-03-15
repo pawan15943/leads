@@ -32,6 +32,7 @@ import { DataTableCard } from "@/components/ui/data-table-card"
 import { TableSkeleton } from "@/components/ui/table-skeleton"
 import { EmptyState } from "@/components/ui/empty-state"
 import { LeadDetailSheet, type Lead } from "@/components/leads/LeadDetailSheet"
+import { LeadDetailView } from "@/components/leads/LeadDetailView"
 import { LeadFormSheet } from "@/components/leads/LeadFormSheet"
 import { ImportLeadSheet } from "@/components/leads/ImportLeadSheet"
 import { AddReminderSheet } from "@/components/leads/AddReminderSheet"
@@ -432,6 +433,18 @@ export default function LeadsPage() {
     return digits.length >= 10 ? `https://wa.me/${digits}` : undefined
   }
 
+  const leadIdParam = searchParams.get("id")
+  const leadIdNum = leadIdParam ? parseInt(leadIdParam, 10) : NaN
+  const showLeadDetail = !isNaN(leadIdNum) && leadIdNum > 0
+
+  if (showLeadDetail) {
+    return (
+      <div className="min-w-0 space-y-3">
+        <LeadDetailView leadId={leadIdNum} />
+      </div>
+    )
+  }
+
   return (
     <div className="min-w-0 space-y-3">
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -707,7 +720,7 @@ export default function LeadsPage() {
           </TableHeader>
           <TableBody>
               {paginatedLeads.map((lead) => (
-              <TableRow key={lead.id} onMouseEnter={() => router.prefetch(`/leads/${lead.id}`)}>
+              <TableRow key={lead.id} onMouseEnter={() => router.prefetch(`/leads?id=${lead.id}`)}>
                 <TableCell>
                   <Checkbox
                     checked={selected.includes(lead.id)}
@@ -781,7 +794,7 @@ export default function LeadsPage() {
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end" className="w-fit min-w-max">
-                        <DropdownMenuItem onClick={() => router.push(`/leads/${lead.id}`)}>
+                        <DropdownMenuItem onClick={() => router.push(`/leads?id=${lead.id}`)}>
                           <Eye className="mr-2 size-4" />
                           View Lead
                         </DropdownMenuItem>

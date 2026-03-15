@@ -250,7 +250,7 @@ export default function CitiesPage() {
         onSearchChange={setSearch}
         filters={
           <>
-            <Select value={countryFilter} onValueChange={(v) => { setCountryFilter(v); setStateFilter("all"); }}>
+            <Select value={countryFilter} onValueChange={(v) => { setCountryFilter(v ?? "all"); setStateFilter("all"); }}>
               <SelectTrigger className="w-[140px]">
                 <SelectValue placeholder="Country" />
               </SelectTrigger>
@@ -263,7 +263,7 @@ export default function CitiesPage() {
                 ))}
               </SelectContent>
             </Select>
-            <Select value={stateFilter} onValueChange={setStateFilter}>
+            <Select value={stateFilter} onValueChange={(v) => setStateFilter(v ?? "all")}>
               <SelectTrigger className="w-[140px]">
                 <SelectValue placeholder="State" />
               </SelectTrigger>

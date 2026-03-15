@@ -11,9 +11,9 @@ const config = {
     { key: "id", label: "ID" },
     { key: "name", label: "Name", required: true },
     { key: "slug", label: "Slug", placeholder: "e.g. new, contacted" },
-    { key: "stage_order", label: "Order", type: "number" },
+    { key: "stage_order", label: "Order", type: "number" as const },
     { key: "color", label: "Color", placeholder: "#hex" },
-    { key: "is_closed", label: "Closed", type: "checkbox" },
+    { key: "is_closed", label: "Closed", type: "checkbox" as const },
   ],
 }
 

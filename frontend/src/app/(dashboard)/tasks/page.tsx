@@ -303,7 +303,7 @@ export default function TasksPage() {
                     </DropdownMenuItem>
                     {task.lead_id && (
                       <DropdownMenuItem asChild>
-                        <a href={`/leads/${task.lead_id}`}>View Lead</a>
+                        <a href={`/leads?id=${task.lead_id}`}>View Lead</a>
                       </DropdownMenuItem>
                     )}
                   </DropdownMenuContent>
@@ -366,7 +366,7 @@ export default function TasksPage() {
                       </DropdownMenuItem>
                       {task.lead_id && (
                         <DropdownMenuItem asChild>
-                          <a href={`/leads/${task.lead_id}`}>View Lead</a>
+                          <a href={`/leads?id=${task.lead_id}`}>View Lead</a>
                         </DropdownMenuItem>
                       )}
                     </DropdownMenuContent>

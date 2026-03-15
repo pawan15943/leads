@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect, useCallback } from "react"
-import { useParams, useRouter } from "next/navigation"
 import Link from "next/link"
 import {
   Phone,
@@ -18,23 +17,10 @@ import { CallPopupForm } from "@/components/leads/CallPopupForm"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { leadsApi, type ApiLead, type ApiLeadConversation } from "@/lib/api"
 
-const EMPTY = "\u2014"; // em dash
-
-function formatDate(d: string | null | undefined) {
-  if (!d) return EMPTY;
-  try {
-    return new Date(d).toLocaleDateString("en-IN", {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
-    });
-  } catch {
-    return EMPTY;
-  }
-}
+const EMPTY = "\u2014"
 
 function formatDateTime(d: string | null | undefined) {
-  if (!d) return EMPTY;
+  if (!d) return EMPTY
   try {
     return new Date(d).toLocaleString("en-IN", {
       day: "numeric",
@@ -42,9 +28,9 @@ function formatDateTime(d: string | null | undefined) {
       year: "numeric",
       hour: "2-digit",
       minute: "2-digit",
-    });
+    })
   } catch {
-    return EMPTY;
+    return EMPTY
   }
 }
 
@@ -57,21 +43,18 @@ function InfoRow({ label, value }: { label: string; value: React.ReactNode }) {
   )
 }
 
-export default function LeadDetailPage() {
-  const params = useParams()
-  const router = useRouter()
-  const id = Number(params.id)
+export function LeadDetailView({ leadId, onBack }: { leadId: number; onBack?: () => void }) {
   const [lead, setLead] = useState<ApiLead | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [callOpen, setCallOpen] = useState(false)
 
   const fetchLead = useCallback(async () => {
-    if (!id || isNaN(id)) return
+    if (!leadId || isNaN(leadId)) return
     setLoading(true)
     setError(null)
     try {
-      const data = await leadsApi.get(id)
+      const data = await leadsApi.get(leadId)
       setLead(data)
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to load lead")
@@ -79,7 +62,7 @@ export default function LeadDetailPage() {
     } finally {
       setLoading(false)
     }
-  }, [id])
+  }, [leadId])
 
   useEffect(() => {
     fetchLead()
@@ -149,9 +132,9 @@ export default function LeadDetailPage() {
               <Button variant="outline" onClick={() => fetchLead()}>
                 Retry
               </Button>
-              <Button variant="outline" onClick={() => router.push("/leads")}>
-                Back to Leads
-              </Button>
+              <Link href="/leads">
+                <Button variant="outline">Back to Leads</Button>
+              </Link>
             </div>
           </CardContent>
         </Card>
@@ -165,7 +148,6 @@ export default function LeadDetailPage() {
 
   return (
     <div className="space-y-4">
-      {/* Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <Link
@@ -219,9 +201,9 @@ export default function LeadDetailPage() {
           </Button>
           <Link href="/leads">
             <Button variant="outline" size="sm">
-            <Pencil className="mr-2 size-4" />
-            Edit Lead
-          </Button>
+              <Pencil className="mr-2 size-4" />
+              Edit Lead
+            </Button>
           </Link>
           {wa && (
             <a href={wa} target="_blank" rel="noopener noreferrer">
@@ -242,9 +224,7 @@ export default function LeadDetailPage() {
         </div>
       </div>
 
-      {/* Cards */}
       <div className="grid gap-4 md:grid-cols-2">
-        {/* Lead Information */}
         <Card>
           <CardHeader>
             <CardTitle className="text-base">Lead Information</CardTitle>
@@ -265,7 +245,6 @@ export default function LeadDetailPage() {
           </CardContent>
         </Card>
 
-        {/* Contact Details */}
         <Card>
           <CardHeader>
             <CardTitle className="text-base">Contact Details</CardTitle>
@@ -301,7 +280,6 @@ export default function LeadDetailPage() {
         </Card>
       </div>
 
-      {/* Conversation Timeline */}
       <Card>
         <CardHeader>
           <CardTitle className="text-base">Conversation History</CardTitle>
@@ -362,7 +340,7 @@ export default function LeadDetailPage() {
       <CallPopupForm
         open={callOpen}
         onOpenChange={setCallOpen}
-        leadId={id}
+        leadId={leadId}
         onSuccess={fetchLead}
       />
     </div>

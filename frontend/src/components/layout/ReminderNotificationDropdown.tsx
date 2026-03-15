@@ -94,7 +94,7 @@ export function ReminderNotificationDropdown() {
               {reminders.map((r) => (
                 <Link
                   key={r.id}
-                  href={`/leads/${r.lead_id}`}
+                  href={`/leads?id=${r.lead_id}`}
                   onClick={() => setOpen(false)}
                   className="block rounded-md p-2 hover:bg-muted/60 transition-colors"
                 >

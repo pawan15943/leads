@@ -11,7 +11,7 @@ const config = {
     { key: "id", label: "ID" },
     { key: "name", label: "Name", required: true },
     { key: "slug", label: "Slug", placeholder: "e.g. call-not-received" },
-    { key: "is_connected", label: "Connected", type: "checkbox" },
+    { key: "is_connected", label: "Connected", type: "checkbox" as const },
   ],
 }
 

@@ -124,7 +124,7 @@ export default function RemindersPage() {
           {reminders.map((r) => (
             <Link
               key={r.id}
-              href={`/leads/${r.lead_id}`}
+              href={`/leads?id=${r.lead_id}`}
               className={`flex flex-col gap-2 rounded-lg border bg-card p-3 shadow-sm transition-colors hover:bg-muted/50 ${
                 activeTab === "overdue" ? "border-destructive/30 bg-destructive/5" : ""
               }`}
@@ -154,7 +154,7 @@ export default function RemindersPage() {
             {reminders.map((r) => (
               <TableRow key={r.id}>
                 <TableCell>
-                  <Link href={`/leads/${r.lead_id}`} className="font-medium hover:underline">
+                  <Link href={`/leads?id=${r.lead_id}`} className="font-medium hover:underline">
                     {r.lead?.library_name || "Lead"}
                   </Link>
                 </TableCell>

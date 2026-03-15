@@ -1,0 +1,19 @@
+# Apache config for Next.js static export on shared hosting (PHP)
+# Upload the entire 'out' folder contents to your web root (e.g. public_html or leads.libraro.in)
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Redirect old /leads/123 URLs to /leads?id=123
+  RewriteRule ^leads/([0-9]+)/?$ /leads?id=$1 [R=301,L,QSA]
+
+  # If the request is for a file or directory that exists, serve it
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # For SPA-style routing: serve index.html for non-file requests
+  # Next.js export creates proper folder structure, so this may not be needed
+  # Uncomment if you have 404s on direct URL access:
+  # RewriteRule ^(.*)$ /$1/index.html [L]
+</IfModule>
