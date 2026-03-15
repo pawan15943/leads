@@ -102,7 +102,7 @@ export function CreateTaskSheet({ open, onOpenChange, lead, onSuccess }: CreateT
               </div>
               <div className="space-y-2">
                 <Label htmlFor="task-type">Type</Label>
-                <Select value={taskType} onValueChange={setTaskType}>
+                <Select value={taskType} onValueChange={(v) => setTaskType(v ?? "Call")}>
                   <SelectTrigger id="task-type" className="w-full">
                     <SelectValue />
                   </SelectTrigger>

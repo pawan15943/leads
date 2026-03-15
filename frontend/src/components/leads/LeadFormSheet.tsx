@@ -45,12 +45,16 @@ export type Lead = {
   owner: string
   contact: string
   stage: string
+  stageId?: number
   source: string
+  sourceId?: number
   assignedTo: string
   lastCall: string
   nextFollowup: string
   tags: string[]
   location: string
+  cityId?: number
+  stateId?: number
 }
 
 const FALLBACK_STAGES = ["New", "Contacted", "Interested", "Demo Scheduled"]
@@ -497,8 +501,9 @@ export function LeadFormSheet({
                   <Select
                     value={formData.stage}
                     onValueChange={(v) => {
-                      const stageObj = stageOptionsProp?.find((s) => s.name === v) ?? stageOptionsWithId.find((s) => s.name === v)
-                      setFormData((p) => ({ ...p, stage: v, stageId: stageObj?.id }))
+                      const val = v ?? ""
+                      const stageObj = stageOptionsProp?.find((s) => s.name === val) ?? stageOptionsWithId.find((s) => s.name === val)
+                      setFormData((p) => ({ ...p, stage: val, stageId: stageObj?.id }))
                     }}
                   >
                     <SelectTrigger className="w-full">
@@ -516,8 +521,9 @@ export function LeadFormSheet({
                   <Select
                     value={formData.source}
                     onValueChange={(v) => {
-                      const sourceObj = sourceOptionsProp?.find((s) => s.name === v) ?? sourceOptionsWithId.find((s) => s.name === v)
-                      setFormData((p) => ({ ...p, source: v, sourceId: sourceObj?.id }))
+                      const val = v ?? ""
+                      const sourceObj = sourceOptionsProp?.find((s) => s.name === val) ?? sourceOptionsWithId.find((s) => s.name === val)
+                      setFormData((p) => ({ ...p, source: val, sourceId: sourceObj?.id }))
                     }}
                   >
                     <SelectTrigger className="w-full">
@@ -532,7 +538,7 @@ export function LeadFormSheet({
                 </div>
                 <div className="space-y-2">
                   <Label>State</Label>
-                  <Select value={formData.state} onValueChange={(v) => setFormData((p) => ({ ...p, state: v, city: "", cityId: undefined }))}>
+                  <Select value={formData.state} onValueChange={(v) => setFormData((p) => ({ ...p, state: v ?? "", city: "", cityId: undefined }))}>
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Select state" />
                     </SelectTrigger>
@@ -548,8 +554,9 @@ export function LeadFormSheet({
                   <Select
                     value={formData.city}
                     onValueChange={(v) => {
-                      const cityObj = cityOptions.find((c) => c.name === v)
-                      setFormData((p) => ({ ...p, city: v, cityId: cityObj?.id }))
+                      const val = v ?? ""
+                      const cityObj = cityOptions.find((c) => c.name === val)
+                      setFormData((p) => ({ ...p, city: val, cityId: cityObj?.id }))
                     }}
                     disabled={!formData.state}
                   >
@@ -565,7 +572,7 @@ export function LeadFormSheet({
                 </div>
                 <div className="space-y-2">
                   <Label>Assigned BD</Label>
-                  <Select value={formData.assignedTo || "-"} onValueChange={(v) => setFormData((p) => ({ ...p, assignedTo: v }))}>
+                  <Select value={formData.assignedTo || "-"} onValueChange={(v) => setFormData((p) => ({ ...p, assignedTo: v ?? "-" }))}>
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Select BD" />
                     </SelectTrigger>

@@ -230,7 +230,7 @@ export default function StatesPage() {
         onSearchChange={setSearch}
         filters={
           <>
-            <Select value={countryFilter} onValueChange={setCountryFilter}>
+            <Select value={countryFilter} onValueChange={(v) => setCountryFilter(v ?? "all")}>
               <SelectTrigger className="w-[160px]">
                 <SelectValue placeholder="Country" />
               </SelectTrigger>

@@ -155,7 +155,7 @@ export default function TasksPage() {
         onSearchChange={setSearch}
         filters={
           <>
-            <Select value={statusFilter} onValueChange={setStatusFilter}>
+            <Select value={statusFilter} onValueChange={(v) => setStatusFilter(v ?? "all")}>
               <SelectTrigger className="w-full min-w-0 md:w-[200px]">
                 <span className="shrink-0 text-muted-foreground">Status:</span>
                 <SelectValue placeholder="All" />
@@ -166,7 +166,7 @@ export default function TasksPage() {
                 ))}
               </SelectContent>
             </Select>
-            <Select value={typeFilter} onValueChange={setTypeFilter}>
+            <Select value={typeFilter} onValueChange={(v) => setTypeFilter(v ?? "all")}>
               <SelectTrigger className="w-full min-w-0 md:w-[140px]">
                 <span className="shrink-0 text-muted-foreground">Type:</span>
                 <SelectValue placeholder="All" />
@@ -178,7 +178,7 @@ export default function TasksPage() {
                 <SelectItem value="Meeting">Meeting</SelectItem>
               </SelectContent>
             </Select>
-            <Select value={assignedFilter} onValueChange={setAssignedFilter}>
+            <Select value={assignedFilter} onValueChange={(v) => setAssignedFilter(v ?? "all")}>
               <SelectTrigger className="w-full min-w-0 md:w-[180px]">
                 <span className="shrink-0 text-muted-foreground">Assigned:</span>
                 <SelectValue placeholder="All" />
@@ -302,7 +302,7 @@ export default function TasksPage() {
                       Mark Complete
                     </DropdownMenuItem>
                     {task.lead_id && (
-                      <DropdownMenuItem asChild>
+                      <DropdownMenuItem>
                         <a href={`/leads?id=${task.lead_id}`}>View Lead</a>
                       </DropdownMenuItem>
                     )}
@@ -365,7 +365,7 @@ export default function TasksPage() {
                         Mark Complete
                       </DropdownMenuItem>
                       {task.lead_id && (
-                        <DropdownMenuItem asChild>
+                        <DropdownMenuItem>
                           <a href={`/leads?id=${task.lead_id}`}>View Lead</a>
                         </DropdownMenuItem>
                       )}

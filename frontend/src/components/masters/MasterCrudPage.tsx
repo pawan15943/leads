@@ -65,7 +65,7 @@ export type MasterCrudApi = {
   delete: (id: number) => Promise<void>
 }
 
-type MasterRecord = Record<string, string | number | boolean>
+type MasterRecord = Record<string, string | number | boolean | null>
 
 type MasterCrudPageProps = {
   config: MasterCrudConfig

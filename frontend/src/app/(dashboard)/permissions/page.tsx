@@ -208,7 +208,7 @@ export default function PermissionsPage() {
         searchValue={search}
         onSearchChange={setSearch}
         filters={
-          <Select value={moduleFilter} onValueChange={setModuleFilter}>
+          <Select value={moduleFilter} onValueChange={(value) => setModuleFilter(value || "all")}>
             <SelectTrigger className="w-[160px]">
               <SelectValue placeholder="Module" />
             </SelectTrigger>

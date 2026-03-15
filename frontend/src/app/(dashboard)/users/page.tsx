@@ -257,7 +257,7 @@ export default function UsersPage() {
         onSearchChange={setSearch}
         filters={
           <>
-            <Select value={roleFilter} onValueChange={setRoleFilter}>
+            <Select value={roleFilter} onValueChange={(v) => setRoleFilter(v ?? "all")}>
               <SelectTrigger className="w-[140px]">
                 <SelectValue placeholder="Role" />
               </SelectTrigger>
@@ -268,7 +268,7 @@ export default function UsersPage() {
                 ))}
               </SelectContent>
             </Select>
-            <Select value={statusFilter} onValueChange={setStatusFilter}>
+            <Select value={statusFilter} onValueChange={(v) => setStatusFilter(v ?? "all")}>
               <SelectTrigger className="w-[120px]">
                 <SelectValue placeholder="Status" />
               </SelectTrigger>
@@ -511,7 +511,7 @@ export default function UsersPage() {
               <Label>Status</Label>
               <Select
                 value={form.status}
-                onValueChange={(v) => setForm((p) => ({ ...p, status: v }))}
+                onValueChange={(v) => setForm((p) => ({ ...p, status: v || "active" }))}
               >
                 <SelectTrigger>
                   <SelectValue />

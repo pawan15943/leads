@@ -125,7 +125,7 @@ function SidebarNavSection({ section, pathname }: { section: NavSection; pathnam
           {section.items.map((item) => {
             const isActive = pathname === item.href || pathname.startsWith(item.href + "/")
             return (
-              <DropdownMenuItem key={item.href} asChild>
+              <DropdownMenuItem key={item.href}>
                 <Link
                   href={item.href}
                   className={cn(

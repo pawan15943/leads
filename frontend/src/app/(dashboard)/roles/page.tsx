@@ -239,7 +239,7 @@ export default function RolesPage() {
         searchValue={search}
         onSearchChange={setSearch}
         filters={
-          <Select value={slugFilter} onValueChange={setSlugFilter}>
+          <Select value={slugFilter} onValueChange={(v) => setSlugFilter(v ?? "all")}>
             <SelectTrigger className="w-[160px]">
               <SelectValue placeholder="Role" />
             </SelectTrigger>
